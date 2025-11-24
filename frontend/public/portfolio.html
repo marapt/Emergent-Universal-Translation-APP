@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Translator App - Case Study | Mara Martins</title>
+    <meta name="description" content="AI-powered translation app supporting 108+ languages - Built with Emergent AI in 6 hours">
+    
+    <style>
+        /* Matching maramartins.com color scheme and typography */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        /* Header matching maramartins.com style */
+        .site-header {
+            background: var(--white);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 30px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-meta {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 30px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 60px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .section-intro {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        /* Video Container */
+        .video-wrapper {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .video-placeholder h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .feature-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-working {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-limited {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .feature-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: var(--bg-light);
+            padding: 40px 20px;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .tech-item strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tech-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Prompt Example */
+        .prompt-box {
+            background: #e8f4fd;
+            border-left: 4px solid var(--accent-color);
+            padding: 25px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .prompt-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .prompt-box p {
+            margin-bottom: 10px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 50px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px var(--bg-light);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills-highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 80px 30px;
+            border-radius: 8px;
+            margin: 60px 0;
+        }
+
+        .skills-highlight .section-title {
+            color: white;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-buttons {
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 10px;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--bg-light);
+            padding: 40px 30px;
+            text-align: center;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .features-grid,
+            .stats-grid,
+            .tech-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item::before {
+                left: -28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="https://maramartins.com" class="site-title">Mara Martins</a>
+            <a href="https://maramartins.com" class="back-link">← Back to Portfolio</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Universal Translator App</h1>
+            <p class="hero-subtitle">An AI-powered mobile translation platform supporting text, voice, and sign language across 108+ languages</p>
+            <div class="hero-meta">
+                <strong>Role:</strong> Localization PM & Product Designer | <strong>Timeline:</strong> ~6 hours | <strong>Tools:</strong> Emergent AI, Expo, OpenAI
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <p class="section-intro">
+                As a Localization PM, I leveraged my domain expertise and Emergent AI to rapidly build a production-ready translation app. 
+                This case study demonstrates how localization knowledge combined with AI tools can accelerate time-to-market while maintaining 
+                professional quality and global accessibility standards.
+            </p>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">108+</div>
+                    <div class="stat-label">Spoken Languages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Sign Languages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Core Features</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6hrs</div>
+                    <div class="stat-label">Development Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">App Demo</h2>
+            <div class="video-wrapper">
+                <div class="video-placeholder">
+                    <div>
+                        <h3>📹 Video Demonstration</h3>
+                        <p style="font-size: 1.1rem; margin-top: 20px; line-height: 1.6;">
+                            <strong>Features Showcase:</strong><br>
+                            • Text translation between languages<br>
+                            • Text to sign language conversion<br>
+                            • Translation history<br>
+                            • Voice feature (with noted limitations)<br>
+                            • Mobile-first UI navigation
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Core Features & Capabilities</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-status status-working">✓ FULLY WORKING</span>
+                    <h3>📝 Text Translation</h3>
+                    <p>Real-time translation between 108+ spoken languages using OpenAI GPT-4o-mini. Clean interface with language swap functionality and instant results.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-status status-working">✓ FULLY WORKING</span>
+                    <h3>🤟 Text to Sign Language</h3>
+                    <p>Detailed step-by-step signing instructions for 8 major sign languages (ASL, BSL, ISL, JSL, LSF, Auslan, DGS, CSL), ensuring accessibility for deaf and hard-of-hearing communities.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-status status-working">✓ FULLY WORKING</span>
+                    <h3>📚 Translation History</h3>
+                    <p>Automatic saving of all translations to MongoDB with timestamps. Pull-to-refresh functionality for easy access to past conversations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-status status-limited">⚠️ LIMITED</span>
+                    <h3>🎤 Voice Translation</h3>
+                    <p>Complete structure for voice-to-voice translation. Requires OpenAI API key (Whisper + TTS not supported by Emergent LLM key). Clear documentation provided.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-status status-working">✓ STRUCTURE READY</span>
+                    <h3>📷 Sign Language to Text</h3>
+                    <p>Camera-based interpretation using GPT-4 Vision. Capture system fully functional, ready for production testing with sign language images.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-status status-working">✓ FULLY WORKING</span>
+                    <h3>📱 Mobile-First Design</h3>
+                    <p>Native-feeling Expo React Native app with tab navigation, proper permissions, safe areas, and cross-platform support (iOS & Android).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Was Built -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">Building with Emergent AI</h2>
+            
+            <h3 class="section-subtitle">What is Emergent?</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 30px;">
+                Emergent is an AI-powered development platform enabling rapid application development through natural language interaction. 
+                Instead of coding line-by-line, I described requirements, and Emergent's AI agent handled implementation, testing, and debugging.
+            </p>
+
+            <div class="tech-section">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">The Emergent Advantage</h3>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <strong>⚡ Speed</strong>
+                        <p>Full-stack app in ~6 hours vs weeks of traditional development</p>
+                    </div>
+                    <div class="tech-item">
+                        <strong>🤖 AI Agent</strong>
+                        <p>Autonomous coding, testing, and debugging with minimal intervention</p>
+                    </div>
+                    <div class="tech-item">
+                        <strong>🔧 Full Stack</strong>
+                        <p>Handles frontend, backend, database, and deployment automatically</p>
+                    </div>
+                    <div class="tech-item">
+                        <strong>🔑 Integrated APIs</strong>
+                        <p>Built-in Emergent LLM key for OpenAI, Claude, and Gemini</p>
+                    </div>
+                    <div class="tech-item">
+                        <strong>📱 Mobile Native</strong>
+                        <p>Expo React Native with permissions, navigation, and proper UI</p>
+                    </div>
+                    <div class="tech-item">
+                        <strong>🧪 Auto-Testing</strong>
+                        <p>Built-in testing agents validate functionality before delivery</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Development Timeline</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Hour 1-2: Requirements & Planning</h4>
+                    <p>Discussed requirements, clarified features (text, voice, sign language), chose AI services, and confirmed use of Emergent LLM key. Leveraged my localization expertise to ensure comprehensive language coverage.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Hour 2-3: Backend Development</h4>
+                    <p>Emergent built FastAPI backend with MongoDB integration, OpenAI API endpoints, and data models. Tested thoroughly with curl commands to ensure reliability.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Hour 3-4: Frontend Development</h4>
+                    <p>Created Expo mobile app with 5 tab screens, navigation, UI components, and API integration. Implemented proper permission handling for camera, microphone, and photo library.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Hour 4-5: Testing & Bug Fixes</h4>
+                    <p>Backend testing validated all APIs. Fixed FileSystem encoding issues, MongoDB ObjectId serialization, and permission flows through iterative feedback.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Hour 5-6: Refinement & Documentation</h4>
+                    <p>Discovered voice API limitation, updated error messages, created comprehensive documentation, and built this portfolio case study.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Process -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Development Process & Code Examples</h2>
+
+            <h3 class="section-subtitle">My Interaction with Emergent AI</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 30px;">
+                As a Localization PM, I guided Emergent's AI with domain expertise. Here's our collaboration:
+            </p>
+
+            <div class="prompt-box">
+                <h4>Initial Requirements</h4>
+                <p><strong>My Prompt:</strong></p>
+                <div class="code-block">
+"Build me an App that can be used in any mobile device to translate text, 
+plus also interpret and translate in real time voice to text and text to 
+voice for all languages in the world using AI. It should also include 
+Accessibility features and sign language translation to text, and text 
+to image into sign language."
+                </div>
+                <p><strong>Result:</strong> Emergent asked clarifying questions about API preferences, language priorities, and implementation approach before starting development.</p>
+            </div>
+
+            <div class="prompt-box">
+                <h4>Bug Fix Example: FileSystem Encoding</h4>
+                <p><strong>Issue Reported:</strong> Voice translation error - "Cannot read property 'Base64' of undefined"</p>
+                <p><strong>My Action:</strong> Provided detailed screenshot showing the exact error</p>
+                <p><strong>AI Solution:</strong> Identified deprecated API, implemented fix</p>
+                <div class="code-block">
+// BEFORE (Broken)
+import * as FileSystem from 'expo-file-system';
+const audioBase64 = await FileSystem.readAsStringAsync(audioUri, {
+  encoding: FileSystem.EncodingType.Base64
+});
+
+// AFTER (Fixed)
+import * as FileSystem from 'expo-file-system/legacy';
+const audioBase64 = await FileSystem.readAsStringAsync(audioUri, {
+  encoding: 'base64'
+});
+                </div>
+            </div>
+
+            <div class="prompt-box">
+                <h4>Discovery: API Key Limitation</h4>
+                <p><strong>Issue:</strong> Voice translation returning 401 error</p>
+                <p><strong>Finding:</strong> Emergent LLM key doesn't support Whisper/TTS (audio) APIs, only text generation</p>
+                <p><strong>My Response:</strong> Requested clear documentation of limitation with workarounds rather than hiding the issue</p>
+                <p><strong>Outcome:</strong> Created transparent VOICE_FEATURE_LIMITATION.md explaining options (own API key, Expo Speech, or alternative services)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Localization Expertise -->
+    <section class="skills-highlight">
+        <div class="container">
+            <h2 class="section-title">Leveraging Localization PM Expertise</h2>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🌍 Global Mindset</h3>
+                    <p>Specified 108+ spoken languages and 8 sign languages from the start, ensuring true global reach and accessibility.</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>♿ Accessibility Focus</h3>
+                    <p>Prioritized sign language features alongside spoken translation, serving deaf and hard-of-hearing communities worldwide.</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>📋 Requirements Engineering</h3>
+                    <p>Translated high-level vision into clear technical requirements through iterative dialogue with AI.</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>🎯 User-Centric Design</h3>
+                    <p>Ensured mobile-first approach with intuitive navigation, proper permissions, and clear error messages.</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>🔍 Quality Assurance</h3>
+                    <p>Tested real-world scenarios, reported bugs with detailed screenshots, validated fixes for production readiness.</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>📊 Scope Management</h3>
+                    <p>Understood technical constraints, documented them clearly, and provided alternative solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Impact -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Business Impact & Future Vision</h2>
+            
+            <h3 class="section-subtitle">How This App Improves Global Reach</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🌐 Market Expansion</h3>
+                    <p>Organizations can instantly communicate with users in 108+ languages, opening new markets without hiring translators for each language pair.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>♿ Inclusive Design</h3>
+                    <p>Sign language support ensures deaf and hard-of-hearing communities aren't excluded, expanding addressable audience by millions globally.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Speed to Market</h3>
+                    <p>What traditionally takes months was built in hours, enabling rapid prototyping and faster time-to-value for global products.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💰 Cost Efficiency</h3>
+                    <p>Using Emergent LLM key eliminates per-language translation costs. Single key powers translation across all supported languages.</p>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Future Enhancements</h3>
+            <div class="tech-section">
+                <ul style="font-size: 1.05rem; line-height: 2; margin-left: 20px;">
+                    <li><strong>Cultural Adaptation:</strong> Context-aware translation considering cultural nuances, not just literal conversion</li>
+                    <li><strong>Regional Variants:</strong> Support for language variants (e.g., Portuguese-Brazil vs Portuguese-Portugal)</li>
+                    <li><strong>Industry Terminology:</strong> Custom dictionaries for medical, legal, and technical translations</li>
+                    <li><strong>Collaboration Features:</strong> Multi-user translation review workflows for enterprise use</li>
+                    <li><strong>Offline Mode:</strong> Local translation for regions with limited connectivity</li>
+                    <li><strong>Analytics Dashboard:</strong> Track language usage to inform localization strategy decisions</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Learnings -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">Key Learnings</h2>
+            
+            <div class="prompt-box">
+                <h4>What I Learned About AI-Assisted Development</h4>
+                <ul style="margin-left: 20px; margin-top: 15px; line-height: 2; font-size: 1.05rem;">
+                    <li><strong>Clear requirements matter:</strong> Better articulation = better output. My localization expertise helped guide design decisions.</li>
+                    <li><strong>Domain knowledge is valuable:</strong> Understanding global audiences, accessibility, and cultural nuances shaped product features.</li>
+                    <li><strong>Iterative feedback works:</strong> Detailed bug reports with screenshots enabled quick resolutions.</li>
+                    <li><strong>Transparency is critical:</strong> Documenting limitations (like Emergent LLM key scope) builds trust.</li>
+                    <li><strong>PM skills transfer:</strong> Requirements gathering, testing, and communication apply equally to AI-assisted development.</li>
+                    <li><strong>Speed enables experimentation:</strong> 6-hour build time allows rapid iteration and learning.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Interested in Collaborating?</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-top: 20px;">
+                This project demonstrates how Localization PM expertise combined with AI tools<br>can rapidly build global-ready applications.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://maramartins.com/#contact" class="cta-button">Get in Touch</a>
+                <a href="https://github.com/yourusername/universal-translator" class="cta-button secondary">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>Built with Emergent AI • Development Time: ~6 hours • 108+ Languages • 8 Sign Languages</p>
+            <p style="margin-top: 15px;">© 2025 Mara Martins | <a href="https://maramartins.com" style="color: var(--accent-color);">maramartins.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>
