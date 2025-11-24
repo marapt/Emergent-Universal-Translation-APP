@@ -466,6 +466,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_db():
+    """Create database indexes on startup"""
+    try:
+        # Create index on timestamp field for translations collection (for history queries)
+        await db.translations.create_index([("timestamp", -1)])
+        logger.info("Database indexes created successfully")
+    except Exception as e:
+        logger.warning(f"Index creation warning (may already exist): {e}")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
