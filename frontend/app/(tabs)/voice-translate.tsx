@@ -93,7 +93,7 @@ export default function VoiceTranslate() {
     try {
       // Read audio file as base64
       const audioBase64 = await FileSystem.readAsStringAsync(audioUri, {
-        encoding: 'base64',
+        encoding: BASE64_ENCODING,
       });
 
       // Send to backend for transcription and translation
