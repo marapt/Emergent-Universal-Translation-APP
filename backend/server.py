@@ -232,6 +232,18 @@ async def generate_sign_description(text: str, sign_language: str) -> str:
 async def root():
     return {"message": "Translation API", "status": "active"}
 
+@app.get("/portfolio")
+async def serve_portfolio():
+    """Serve the portfolio case study page"""
+    from fastapi.responses import FileResponse
+    return FileResponse("/app/universal-translator-case-study.html")
+
+@app.get("/portfolio-original")
+async def serve_portfolio_original():
+    """Serve the original portfolio page"""
+    from fastapi.responses import FileResponse
+    return FileResponse("/app/portfolio.html")
+
 @api_router.post("/translate", response_model=TranslationResponse)
 async def translate_text(request: TranslationRequest):
     """Translate text between languages"""
