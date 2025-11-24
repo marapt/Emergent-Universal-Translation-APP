@@ -14,6 +14,9 @@ import { Audio } from 'expo-av';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 
+// Define encoding constant in case EncodingType is not available
+const BASE64_ENCODING = FileSystem.EncodingType?.Base64 || 'base64';
+
 const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
 const COMMON_LANGUAGES = [
