@@ -127,7 +127,7 @@ export default function VoiceTranslate() {
       // Save base64 audio to temp file
       const fileUri = `${FileSystem.cacheDirectory}translated.mp3`;
       await FileSystem.writeAsStringAsync(fileUri, audioBase64, {
-        encoding: 'base64',
+        encoding: BASE64_ENCODING,
       });
 
       // Play audio
