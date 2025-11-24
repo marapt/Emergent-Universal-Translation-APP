@@ -232,13 +232,13 @@ async def generate_sign_description(text: str, sign_language: str) -> str:
 async def root():
     return {"message": "Translation API", "status": "active"}
 
-@app.get("/portfolio")
+@api_router.get("/portfolio")
 async def serve_portfolio():
     """Serve the portfolio case study page"""
     from fastapi.responses import FileResponse
     return FileResponse("/app/universal-translator-case-study.html")
 
-@app.get("/portfolio-original")
+@api_router.get("/portfolio-original")
 async def serve_portfolio_original():
     """Serve the original portfolio page"""
     from fastapi.responses import FileResponse
