@@ -384,6 +384,10 @@ async def get_history(limit: int = 50):
     """Get translation history"""
     try:
         translations = await db.translations.find().sort("timestamp", -1).limit(limit).to_list(limit)
+        # Convert MongoDB ObjectId to string for JSON serialization
+        for translation in translations:
+            if '_id' in translation:
+                translation['_id'] = str(translation['_id'])
         return {"history": translations, "count": len(translations)}
     except Exception as e:
         logger.error(f"History fetch error: {e}")
