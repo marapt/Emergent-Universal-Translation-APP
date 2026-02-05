@@ -65,6 +65,7 @@ class VoiceTranslationRequest(BaseModel):
     source_language: str
     target_language: str
     service: str = "openai"
+    user_api_key: Optional[str] = None  # User's own OpenAI API key
 
 class VoiceTranslationResponse(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
