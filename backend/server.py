@@ -350,7 +350,8 @@ async def sign_to_text(request: SignLanguageRequest):
         if request.service == "openai":
             interpreted = await interpret_sign_language(
                 request.image_base64,
-                request.target_language
+                request.target_language,
+                request.user_api_key
             )
             
             response = SignLanguageResponse(
