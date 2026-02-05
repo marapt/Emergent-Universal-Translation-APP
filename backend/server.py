@@ -128,9 +128,9 @@ async def translate_with_openai(text: str, source_lang: str, target_lang: str) -
 async def transcribe_audio_openai(audio_base64: str, language: str) -> str:
     """Transcribe audio using OpenAI Whisper"""
     try:
-        # For Whisper API, we need to use the OpenAI client directly
+        # For Whisper API, we need to use the OpenAI client directly with user's API key
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
+        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
         
         # Decode base64 audio
         audio_bytes = base64.b64decode(audio_base64)
