@@ -302,7 +302,8 @@ async def voice_translate(request: VoiceTranslationRequest):
             # Step 1: Transcribe audio
             transcribed = await transcribe_audio_openai(
                 request.audio_base64,
-                request.source_language
+                request.source_language,
+                request.user_api_key
             )
             
             # Step 2: Translate text
@@ -315,7 +316,8 @@ async def voice_translate(request: VoiceTranslationRequest):
             # Step 3: Convert to speech
             audio_base64 = await text_to_speech_openai(
                 translated,
-                request.target_language
+                request.target_language,
+                request.user_api_key
             )
             
             response = VoiceTranslationResponse(
