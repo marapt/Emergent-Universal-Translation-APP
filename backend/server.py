@@ -180,7 +180,7 @@ async def interpret_sign_language(image_base64: str, target_lang: str) -> str:
     """Interpret sign language from image using GPT-4 Vision"""
     try:
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
+        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
         
         response = await client.chat.completions.create(
             model="gpt-4o",
