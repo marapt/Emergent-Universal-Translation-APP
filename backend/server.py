@@ -155,7 +155,7 @@ async def text_to_speech_openai(text: str, language: str) -> str:
     """Convert text to speech using OpenAI TTS"""
     try:
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
+        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
         
         # Determine voice based on language
         voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
