@@ -29,6 +29,9 @@ db = client[os.environ['DB_NAME']]
 # Get Emergent LLM Key
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 
+# Get OpenAI API Key for Vision and Audio features
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
 # Create the main app
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
