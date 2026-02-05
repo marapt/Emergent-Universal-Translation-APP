@@ -40,7 +40,7 @@ export default function TabLayout() {
         name="sign-to-text"
         options={{
           title: 'Sign→Text',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size}) => (
             <Ionicons name="hand-left" size={size} color={color} />
           ),
         }}
@@ -60,6 +60,15 @@ export default function TabLayout() {
           title: 'History',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="time" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />
