@@ -178,11 +178,13 @@ async def text_to_speech_openai(text: str, language: str) -> str:
         logger.error(f"TTS error: {e}")
         raise HTTPException(status_code=500, detail=f"Text-to-speech failed: {str(e)}")
 
-async def interpret_sign_language(image_base64: str, target_lang: str) -> str:
+async def interpret_sign_language(image_base64: str, target_lang: str, user_api_key: Optional[str] = None) -> str:
     """Interpret sign language from image using GPT-4 Vision"""
     try:
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+        # Use user's API key if provided, otherwise use default
+        api_key = user_api_key if user_api_key else OPENAI_API_KEY
+        client = AsyncOpenAI(api_key=api_key)
         
         response = await client.chat.completions.create(
             model="gpt-4o",
