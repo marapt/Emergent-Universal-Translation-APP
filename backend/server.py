@@ -127,12 +127,13 @@ async def translate_with_openai(text: str, source_lang: str, target_lang: str) -
         logger.error(f"OpenAI translation error: {e}")
         raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
 
-async def transcribe_audio_openai(audio_base64: str, language: str) -> str:
+async def transcribe_audio_openai(audio_base64: str, language: str, user_api_key: Optional[str] = None) -> str:
     """Transcribe audio using OpenAI Whisper"""
     try:
         # For Whisper API, we need to use the OpenAI client directly with user's API key
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+        api_key = user_api_key if user_api_key else OPENAI_API_KEY
+        client = AsyncOpenAI(api_key=api_key)
         
         # Decode base64 audio
         audio_bytes = base64.b64decode(audio_base64)
@@ -153,11 +154,12 @@ async def transcribe_audio_openai(audio_base64: str, language: str) -> str:
         logger.error(f"Whisper transcription error: {e}")
         raise HTTPException(status_code=500, detail=f"Transcription failed: {str(e)}")
 
-async def text_to_speech_openai(text: str, language: str) -> str:
+async def text_to_speech_openai(text: str, language: str, user_api_key: Optional[str] = None) -> str:
     """Convert text to speech using OpenAI TTS"""
     try:
         from openai import AsyncOpenAI
-        client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+        api_key = user_api_key if user_api_key else OPENAI_API_KEY
+        client = AsyncOpenAI(api_key=api_key)
         
         # Determine voice based on language
         voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
