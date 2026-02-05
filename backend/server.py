@@ -81,6 +81,7 @@ class SignLanguageRequest(BaseModel):
     image_base64: str
     target_language: str = "en"
     service: str = "openai"
+    user_api_key: Optional[str] = None  # User's own OpenAI API key
 
 class SignLanguageResponse(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
